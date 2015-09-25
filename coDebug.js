@@ -25,11 +25,34 @@ export default {
     localStorage.removeItem(debugFlag)
   },
 
-  isDebugMode () {
-    return !!localStorage[debugFlag]
-  },
+  isDebugMode,
 
   getDebugFlag () {
     return debugFlag
+  },
+
+  getAngularInterceptors () {
+    return function () {
+      return {
+        request: function (config) {
+          if (isDebugMode()) {
+            window.console.debug('%c REQUEST: ' + config.url, 'color: gray')
+            window.console.debug(config)
+          }
+          return config
+        },
+        response: function (res) {
+          if (isDebugMode()) {
+            window.console.debug('%c RESPONSE: ' + res.config.url, 'color: green')
+            window.console.debug(res)
+          }
+          return res
+        }
+      }
+    }
   }
+}
+
+function isDebugMode () {
+  return !!localStorage[debugFlag]
 }
