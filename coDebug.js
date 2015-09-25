@@ -32,24 +32,28 @@ export default {
   },
 
   getAngularInterceptors () {
-    return function () {
-      return {
-        request: function (config) {
-          if (isDebugMode()) {
-            window.console.debug('%c REQUEST: ' + config.url, 'color: gray')
-            window.console.debug(config)
+    httpInterceptors.$inject = ['$httpProvider']
+    function httpInterceptors ($httpProvider) {
+      return function () {
+        return {
+          request: function (config) {
+            if (isDebugMode()) {
+              window.console.debug('%c REQUEST: ' + config.url, 'color: gray')
+              window.console.debug(config)
+            }
+            return config
+          },
+          response: function (res) {
+            if (isDebugMode()) {
+              window.console.debug('%c RESPONSE: ' + res.config.url, 'color: green')
+              window.console.debug(res)
+            }
+            return res
           }
-          return config
-        },
-        response: function (res) {
-          if (isDebugMode()) {
-            window.console.debug('%c RESPONSE: ' + res.config.url, 'color: green')
-            window.console.debug(res)
-          }
-          return res
         }
       }
     }
+    return httpInterceptors
   },
 
   getAngularUIRouterStateDebug () {
