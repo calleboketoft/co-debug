@@ -22,6 +22,6 @@ export default {
   },
 
   getDebugFlag () {
-    return localStorage['debugFlag']
+    return debugFlag
   }
 }
