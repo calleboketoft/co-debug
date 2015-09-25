@@ -31,7 +31,7 @@ export default {
     return debugFlag
   },
 
-  getAngularInterceptors () {
+  getAngularHttpInterceptors () {
     httpInterceptors.$inject = ['$httpProvider']
     function httpInterceptors ($httpProvider) {
       return function () {
