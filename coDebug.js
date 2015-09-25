@@ -50,6 +50,23 @@ export default {
         }
       }
     }
+  },
+
+  getAngularUIRouterStateDebug () {
+    rootRun.$inject = ['$rootScope']
+    function rootRun ($rootScope) {
+      // UI router state debugging
+      $rootScope.$on('$stateChangeStart', (event, toState) => {
+        window.console.debug('stateChangeStart:   ' + toState.name)
+      })
+      $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
+        window.console.debug('stateChangeError:   ' + toState.name, error)
+      })
+      $rootScope.$on('$stateChangeSuccess', (event, toState) => {
+        window.console.debug('stateChangeSuccess: ' + toState.name)
+      })
+    }
+    return rootRun
   }
 }
 
