@@ -17,6 +17,14 @@ export default {
     }
   },
 
+  enable () {
+    localStorage[debugFlag] = 'on'
+  },
+
+  disable () {
+    localStorage.removeItem(debugFlag)
+  },
+
   isDebugMode () {
     return !!localStorage[debugFlag]
   },
