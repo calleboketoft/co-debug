@@ -34,7 +34,8 @@ export default {
   getAngularHttpInterceptors () {
     httpInterceptors.$inject = ['$httpProvider']
     function httpInterceptors ($httpProvider) {
-      return function () {
+      $httpProvider.interceptors.push(debugHttp)
+      function debugHttp () {
         return {
           request: function (config) {
             if (isDebugMode()) {
